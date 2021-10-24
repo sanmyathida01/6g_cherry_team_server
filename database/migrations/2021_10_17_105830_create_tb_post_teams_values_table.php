@@ -14,12 +14,12 @@ class CreateTbPostTeamsValuesTable extends Migration
     public function up()
     {
         Schema::create('tb_post_teams_values', function (Blueprint $table) {
-            $table->id('teams_values_id');
-            $table->integer('created_user_id')->nullable();
-            $table->timestamp('created_datetime')->nullable();
-            $table->integer('updated_user_id')->nullable();
-            $table->timestamp('updated_datetime')->nullable();
-            $table->foreignId('posts_id')->references('posts_id')->on('tb_posts');
+            $table->integerIncrements('teams_values_id')->comment('ID');
+            $table->integer('created_user_id')->nullable()->comment('作成者');
+            $table->timestamp('created_datetime')->nullable()->comment('作成日時');
+            $table->integer('updated_user_id')->nullable()->comment('更新者');
+            $table->timestamp('updated_datetime')->nullable()->comment('更新日時');
+            $table->foreignId('posts_id')->comment('顧客リストID')->references('posts_id')->on('tb_posts');
         });
     }
 

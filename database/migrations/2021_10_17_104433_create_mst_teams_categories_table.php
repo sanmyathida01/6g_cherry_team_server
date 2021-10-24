@@ -14,8 +14,8 @@ class CreateMstTeamsCategoriesTable extends Migration
     public function up()
     {
         Schema::create('mst_teams_categories', function (Blueprint $table) {
-            $table->id('teams_categories_id');
-            $table->string('teams_categories_name', 50);
+            $table->integerIncrements('teams_categories_id')->comment('ID');
+            $table->string('teams_categories_name', 50)->comment('チームのカテゴリ名');
         });
     }
 

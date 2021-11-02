@@ -17,9 +17,9 @@ class CreateTbOrganizationsTable extends Migration
             $table->id('id')->comment('ID');
             $table->string('organization_name', 50)->comment('オーガニゼーション名');
             $table->boolean('del_flg')->default(0)->nullable()->comment('削除フラグ');
-            $table->integer('created_user_id')->nullable()->comment('作成者');
+            $table->unsignedInteger('created_user_id')->nullable()->comment('作成者');
             $table->timestamp('created_datetime')->nullable()->comment('作成日時');
-            $table->integer('updated_user_id')->nullable()->comment('更新者');
+            $table->unsignedInteger('updated_user_id')->nullable()->comment('更新者');
             $table->timestamp('updated_datetime')->nullable()->comment('更新日時');
             $table->foreignId('organization_id')->comment('オーガニゼーションID')->nullable()->references('id')->on('tb_organizations');
         });

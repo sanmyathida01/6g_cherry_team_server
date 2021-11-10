@@ -25,8 +25,3 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/users', [UsersController::class, 'create'])->name('users_create');
 Route::put('/users/{id}', [UsersController::class, 'update'])->name('users_update');
 Route::delete('/users/{id}', [UsersController::class, 'delete'])->name('users_delete');
-
-/**
- * Teams
- */
-// Route::get('/posts', [TeamsPostsController::class, 'list'])->name('teams.posts.list');

@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         $seeds = [
                     MstTeamsCategoriesSeeder::class,
+                                        MstLoginUserRolesSeeder::class,
+                                        TbOrganizationsSeeder::class
             ];
         $this->call($seeds);
     }

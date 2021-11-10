@@ -49,5 +49,10 @@ services:
         ports:
             - 8888:80
 
+    mail:
+        image: mailhog/mailhog
+        ports:
+            - 8025:8025
+
 volumes:
     db-data:

@@ -13,9 +13,9 @@ class CreateMstTeamsCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('mst_teams_categories', function (Blueprint $table) {
-            $table->integerIncrements('teams_categories_id')->comment('ID');
-            $table->string('teams_categories_name', 50)->comment('チームのカテゴリ名');
+        Schema::create('mst_team_categories', function (Blueprint $table) {
+            $table->integerIncrements('team_categories_id')->comment('ID');
+            $table->string('team_categories_name', 50)->comment('チームのカテゴリ名');
         });
     }
 
@@ -26,6 +26,6 @@ class CreateMstTeamsCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mst_teams_categories');
+        Schema::dropIfExists('mst_team_categories');
     }
 }

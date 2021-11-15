@@ -17,23 +17,23 @@ class MstTeamsCategoriesSeeder extends Seeder
     {
         DB::table('mst_teams_categories')->insertOrIgnore([
             [
-                'teams_categories_id' => 1,
+                'team_categories_id' => 1,
                 'teams_categories_name' => "THANKS",
             ],
             [
-                'teams_categories_id' => 2,
+                'team_categories_id' => 2,
                 'teams_categories_name' => "ENGINE",
             ],
             [
-                'teams_categories_id' => 3,
+                'team_categories_id' => 3,
                 'teams_categories_name' => "ALL",
             ],
             [
-                'teams_categories_id' => 4,
+                'team_categories_id' => 4,
                 'teams_categories_name' => "MASTERPIECE",
             ],
             [
-                'teams_categories_id' => 5,
+                'team_categories_id' => 5,
                 'teams_categories_name' => "STOCK",
             ],
         ]);

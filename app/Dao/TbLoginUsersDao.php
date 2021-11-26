@@ -6,7 +6,6 @@ use App\Models\TbLoginUsers;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 
 class TbLoginUsersDao
@@ -20,7 +19,7 @@ class TbLoginUsersDao
     public function create(TbLoginUsers $tbLoginUsers)
     {
         DB::beginTransaction();
-
+        $data = null;
         try {
             $password = $this->generatePassword();
             $data = TbLoginUsers::create([
@@ -33,13 +32,13 @@ class TbLoginUsersDao
                 'del_flg' => false,
                 'created_datetime' => now(),
             ]);
-            $this->sendMail($data, $password);
+            $data->password = $password;
             DB::commit();
         } catch (Exception $ex) {
             DB::rollBack();
             Log::error($ex);
         }
-        return ($data) ? true : false;
+        return $data;
     }
 
     /**
@@ -51,40 +50,6 @@ class TbLoginUsersDao
     private function generatePassword($len = 8)
     {
         return substr(str_shuffle(config('constant.PWD_CHAR')), 0, $len);
-    }
-
-    /**
-     * メール送信
-     *
-     * @param  App\Models\TbLoginUsers $tbLoginUsers
-     * @param $password password
-     */
-    public function sendMail($tbLoginUsers, $password)
-    {
-        try {
-            $email = new \stdClass();
-            $email->from = config('mail.from')['address'];
-            $email->to = $tbLoginUsers->login_user_email;
-            $email->sender = config('mail.from')['name'];
-            $email->subject = '【ユーザ登録完了します。】';
-
-            $data = [
-                'sender' => $email->sender,
-                'loginUserMail' => $email->to,
-                'hostName' => url('/'),
-                'pathURL' => 'change_password',
-                'password' => $password,
-                'loginUserId' => $tbLoginUsers->login_users_id
-            ];
-
-            Mail::send('mail.sendMail', $data, function ($message) use ($email) {
-                $message->from($email->from, $email->sender)
-                    ->to($email->to)
-                    ->subject($email->subject);
-            });
-        } catch (Exception $ex) {
-            Log::error($ex);
-        }
     }
 
     /**

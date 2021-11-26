@@ -1,10 +1,10 @@
 ユーザ登録完了しました。
 <br>
 <br>
-Your Password : {{ $password }}
+Your Password : {{ $data['password'] }}
 <br>
 <br>
 以下のURLをクリックしてパスワード変更してください。
 <br>
-{{$hostName}}/{{$pathURL}}?user_id={{$loginUserId}}
+{{$data['hostName']}}/{{$data['pathURL']}}?user_id={{$data['loginUserId']}}
 <br>

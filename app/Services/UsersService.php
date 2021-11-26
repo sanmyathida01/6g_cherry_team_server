@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Dao\TbLoginUsersDao;
 use App\Models\TbLoginUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class UsersService
 {
@@ -34,7 +36,22 @@ class UsersService
         $tbLoginUsers->last_name 					 = $request->last_name;
         $tbLoginUsers->login_user_roles_id = $request->login_user_roles_id;
         $tbLoginUsers->organization_id		 = $request->organization_id;
-        return $this->tbLoginUsersDao->create($tbLoginUsers);
+
+        $loginUserData = $this->tbLoginUsersDao->create($tbLoginUsers);
+
+        $data = [];
+        if ($tbLoginUsers) {
+            $data = [
+                'hostName' => url('/'),
+                'pathURL' => 'change_password',
+                'password' => $loginUserData->password,
+                'loginUserId' => encrypt($loginUserData->login_users_id)
+            ];
+            // メール送信
+            Mail::to($loginUserData->login_user_email)->send(new \App\Mail\VerifyMail($data));
+        }
+
+        return (count($data) > 0) ? true : false;
     }
 
     /**

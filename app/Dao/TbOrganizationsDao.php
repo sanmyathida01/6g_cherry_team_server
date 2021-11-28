@@ -25,7 +25,6 @@ class TbOrganizationsDao
                 'organization_name' => $tbOrganizations->organization_name,
                 'created_user_id' => $tbOrganizations->created_user_id,
                 'del_flg' => false,
-                'created_datetime' => now(),
             ]);
             DB::commit();
         } catch (Exception $ex) {

@@ -30,7 +30,6 @@ class TbLoginUsersDao
                 'login_user_roles_id' => $tbLoginUsers->login_user_roles_id,
                 'organization_id' => $tbLoginUsers->organization_id,
                 'del_flg' => false,
-                'created_datetime' => now(),
             ]);
             $data->password = $password;
             DB::commit();

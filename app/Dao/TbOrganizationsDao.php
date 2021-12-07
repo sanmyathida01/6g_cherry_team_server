@@ -52,6 +52,9 @@ class TbOrganizationsDao
 
             $dataList = $dataList->orderBy('tb_organizations.organization_id');
             $dataList = $dataList->where('tb_organizations.del_flg', '=', 0);
+            $dataList = $dataList->where('tb_organizations.organization_id', '!=', null);
+            $dataList = $dataList->with('parent:id,organization_name');
+                        
             if (!is_null($tbOrganizations->limit)) {
                 $dataList = $dataList->paginate($tbOrganizations->limit, ['*'], 'Page', $tbOrganizations->page);
             } else {

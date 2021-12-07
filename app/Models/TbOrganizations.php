@@ -26,4 +26,14 @@ class TbOrganizations extends Model
         'organization_id',
         'organization_name',
     ];
+
+    public function parent()
+    {
+        return $this->belongsTo(TbOrganizations::class, 'organization_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(TbOrganizations::class, 'organization_id');
+    }
 }

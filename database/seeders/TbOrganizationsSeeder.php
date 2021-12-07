@@ -18,8 +18,14 @@ class TbOrganizationsSeeder extends Seeder
             [
                 'organization_name' => "tech_6g",
             ],
+            [
+                'organization_name' => "tech_5g",
+            ],
+            [
+                'organization_name' => "tech_4g",
+            ],
         ]);
-                
+
         DB::table('tb_organizations')->insertOrIgnore([
             [
                 'organization_id' => 1,
@@ -40,6 +46,22 @@ class TbOrganizationsSeeder extends Seeder
             [
                 'organization_id' => 1,
                 'organization_name' => "Thae Nu Team",
+            ],
+            [
+                'organization_id' => 2,
+                'organization_name' => "Team 1",
+            ],
+            [
+                'organization_id' => 2,
+                'organization_name' => "Team 2",
+            ],
+            [
+                'organization_id' => 3,
+                'organization_name' => "Team 1",
+            ],
+            [
+                'organization_id' => 3,
+                'organization_name' => "Team 2",
             ],
         ]);
     }

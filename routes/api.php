@@ -36,4 +36,7 @@ Route::get('/posts', [TeamsController::class, 'list'])->name('teams_list');
 /**
  * 組織
  */
-Route::post('/organizations', [OrganizationsController::class, 'create'])->name('teams_list');
+Route::post('/organizations', [OrganizationsController::class, 'create'])->name('organization_create');
+Route::get('/organizations', [OrganizationsController::class, 'list'])->name('organization_list');
+Route::put('/organizations/{id}', [OrganizationsController::class, 'update'])->name('organization_update');
+Route::delete('/organizations/{id}', [OrganizationsController::class, 'delete'])->name('organization_delete');

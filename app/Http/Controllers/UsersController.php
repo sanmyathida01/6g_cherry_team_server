@@ -23,7 +23,7 @@ class UsersController extends Controller
     /**
      * ユーザ登録
      *
-     * @param  App\Http\Requests\Applicants\UserCreateForm  $request
+     * @param  App\Http\Requests\UserCreateForm  $request
      * @return \Illuminate\Http\Response
      */
     public function create(UserCreateForm $request)
@@ -34,7 +34,7 @@ class UsersController extends Controller
     /**
      * ユーザー編集
      *
-     * @param  App\Http\Requests\Applicants\UserUpdateForm  $request
+     * @param  App\Http\Requests\UserUpdateForm  $request
      * @param int $id login_users_id
      * @return \Illuminate\Http\Response
      */

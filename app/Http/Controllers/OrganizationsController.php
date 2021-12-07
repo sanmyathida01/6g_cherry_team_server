@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\OrganizationCreateForm;
+use App\Http\Requests\OrganizationUpdateForm;
 use App\Services\OrganizationsService;
+use Illuminate\Http\Request;
 
 class OrganizationsController extends Controller
 {
@@ -28,5 +30,38 @@ class OrganizationsController extends Controller
     public function create(OrganizationCreateForm $request)
     {
         return $this->organizationsService->create($request);
+    }
+
+    /**
+     * 組織一覧
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function list(Request $request)
+    {
+        return $this->organizationsService->list($request);
+    }
+
+    /**
+     * 組織編集
+     *
+     * @param  App\Http\Requests\OrganizationUpdateForm  $request
+     * @param int $id organization_id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(OrganizationUpdateForm $request, $id)
+    {
+        return $this->organizationsService->update($request, $id);
+    }
+
+    /**
+     * 組織削除
+     *
+     * @param  int  $id organization_id
+     * @return \Illuminate\Http\Response
+     */
+    public function delete($id)
+    {
+        return $this->organizationsService->delete($id);
     }
 }

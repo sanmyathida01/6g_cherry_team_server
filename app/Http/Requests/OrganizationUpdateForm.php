@@ -7,7 +7,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\Validation\Validator;
 
-class UserUpdateForm extends FormRequest
+class OrganizationUpdateForm extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,11 +27,8 @@ class UserUpdateForm extends FormRequest
     public function rules()
     {
         return [
-            'login_user_email' => ['required', 'string', 'email', 'max:50'], // Rule::unique('tb_login_users')->ignore(Auth::guard('api')->user()->login_users_id)
-            'first_name' => ['required', 'max:50'],
-            'last_name' => ['required', 'max:50'],
-            'login_user_roles_id' => ['required'],
-            'organization_id' => ['required'],
+            'parent_organization_id' => ['required'],
+            'organization_name' => ['required'],
         ];
     }
 
@@ -41,11 +38,8 @@ class UserUpdateForm extends FormRequest
     public function attributes()
     {
         return [
-            'login_user_email' => 'ログインユーザーメール',
-            'first_name' => 'ファーストネーム',
-            'last_name' => 'ラストネーム',
-            'login_user_roles_id' => 'ログインユーザーロール',
-            'organization_id' => 'オーガニゼーション',
+            'parent_organization_id' => 'グループ名',
+            'organization_name' => 'チーム名',
         ];
     }
 

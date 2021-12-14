@@ -56,12 +56,24 @@ class TbOrganizationsSeeder extends Seeder
                 'organization_name' => "Team 2",
             ],
             [
+                'organization_id' => 2,
+                'organization_name' => "Team 3",
+            ],
+            [
                 'organization_id' => 3,
                 'organization_name' => "Team 1",
             ],
             [
                 'organization_id' => 3,
                 'organization_name' => "Team 2",
+            ],
+            [
+                'organization_id' => 3,
+                'organization_name' => "Team 3",
+            ],
+            [
+                'organization_id' => 3,
+                'organization_name' => "Team 4",
             ],
         ]);
     }

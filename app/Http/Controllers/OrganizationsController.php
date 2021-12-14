@@ -64,4 +64,24 @@ class OrganizationsController extends Controller
     {
         return $this->organizationsService->delete($id);
     }
+
+    /**
+     * グループ一覧
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function groupList()
+    {
+        return $this->organizationsService->groupList();
+    }
+
+    /**
+     * チーム一覧
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function teamList()
+    {
+        return $this->organizationsService->teamList();
+    }
 }

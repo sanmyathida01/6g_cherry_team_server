@@ -20,6 +20,16 @@ class TeamsController extends Controller
     }
 
     /**
+     * チームカテゴリ一覧取得
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getCategories()
+    {
+        return $this->teamsService->getCategories();
+    }
+
+    /**
      * 投稿一覧
      *
      * @param  Illuminate\Http\Request  $request

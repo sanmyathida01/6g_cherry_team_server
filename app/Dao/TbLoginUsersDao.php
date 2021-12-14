@@ -52,6 +52,44 @@ class TbLoginUsersDao
     }
 
     /**
+     * ユーザ一覧
+     *
+     * @param  App\Models\TbLoginUsers $tbOrganizations
+     * @return \Illuminate\Http\Response
+     */
+    public function list(TbLoginUsers $tbLoginUsers)
+    {
+        DB::beginTransaction();
+        try {
+            $dataList = TbLoginUsers::join('mst_login_user_roles', 'tb_login_users.login_user_roles_id', '=', 'mst_login_user_roles.login_user_roles_id');
+
+            $dataList = $dataList->join('tb_organizations', 'tb_login_users.organization_id', '=', 'tb_organizations.id');
+
+            $dataList = $dataList->select([
+                'tb_login_users.login_users_id',
+                'tb_login_users.login_user_email',
+                'tb_login_users.first_name',
+                'tb_login_users.last_name',
+                'mst_login_user_roles.login_user_roles_id',
+                'mst_login_user_roles.role_name',
+                'tb_organizations.organization_name',
+                'tb_organizations.id'
+            ]);
+
+            if (!is_null($tbLoginUsers->page)) {
+                $dataList = $dataList->paginate($tbLoginUsers->limit, ['*'], 'Page', $tbLoginUsers->page);
+            } else {
+                $dataList = $dataList->get();
+            }
+            DB::commit();
+        } catch (Exception $ex) {
+            DB::rollBack();
+            Log::error($ex);
+        }
+        return $dataList;
+    }
+
+    /**
      * ユーザー編集
      *
      * @param  App\Models\TbLoginUsers $tbLoginUsers

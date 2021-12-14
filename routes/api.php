@@ -22,9 +22,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 /**
+ * マスタデータ取得
+ */
+// チームカテゴリ一覧取得
+Route::get('/teams/categories', [TeamsController::class, 'getCategories'])->name('teams_categories');
+// マスタユーザーロル一覧取得
+Route::get('/user/roles', [UsersController::class, 'getUserRoles'])->name('user_roles');
+
+/**
  * ユーザ
  */
 Route::post('/users', [UsersController::class, 'create'])->name('users_create');
+Route::get('/users', [UsersController::class, 'list'])->name('users_list');
 Route::put('/users/{id}', [UsersController::class, 'update'])->name('users_update');
 Route::delete('/users/{id}', [UsersController::class, 'delete'])->name('users_delete');
 
@@ -40,3 +49,7 @@ Route::post('/organizations', [OrganizationsController::class, 'create'])->name(
 Route::get('/organizations', [OrganizationsController::class, 'list'])->name('organization_list');
 Route::put('/organizations/{id}', [OrganizationsController::class, 'update'])->name('organization_update');
 Route::delete('/organizations/{id}', [OrganizationsController::class, 'delete'])->name('organization_delete');
+// グループ一覧取得
+Route::get('/groups', [OrganizationsController::class, 'groupList'])->name('organization_groupList');
+// チーム一覧取得
+Route::get('/teams', [OrganizationsController::class, 'teamList'])->name('organization_teamList');

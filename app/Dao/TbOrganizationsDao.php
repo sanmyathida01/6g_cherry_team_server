@@ -54,7 +54,7 @@ class TbOrganizationsDao
             $dataList = $dataList->where('tb_organizations.del_flg', '=', 0);
             $dataList = $dataList->where('tb_organizations.organization_id', '!=', null);
             $dataList = $dataList->with('parent:id,organization_name');
-                        
+
             if (!is_null($tbOrganizations->limit)) {
                 $dataList = $dataList->paginate($tbOrganizations->limit, ['*'], 'Page', $tbOrganizations->page);
             } else {
@@ -119,5 +119,55 @@ class TbOrganizationsDao
             Log::error($ex);
         }
         return ($data) ? true : false;
+    }
+
+    /**
+     * グループ一覧
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function groupList()
+    {
+        DB::beginTransaction();
+        try {
+            $dataList = TbOrganizations::select([
+                'tb_organizations.id',
+                'tb_organizations.organization_name'
+            ]);
+
+            $dataList = $dataList->where('tb_organizations.del_flg', '=', 0);
+            $dataList = $dataList->where('tb_organizations.organization_id', '=', null);
+            $dataList = $dataList->get();
+            DB::commit();
+        } catch (Exception $ex) {
+            DB::rollBack();
+            Log::error($ex);
+        }
+        return $dataList;
+    }
+
+    /**
+     * チーム一覧
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function teamList()
+    {
+        DB::beginTransaction();
+        try {
+            $dataList = TbOrganizations::select([
+                'tb_organizations.id',
+                'tb_organizations.organization_name'
+            ]);
+
+            $dataList = $dataList->where('tb_organizations.del_flg', '=', 0);
+            $dataList = $dataList->where('tb_organizations.organization_id', '!=', null);
+            $dataList = $dataList->get();
+            DB::commit();
+        } catch (Exception $ex) {
+            DB::rollBack();
+            Log::error($ex);
+        }
+        return $dataList;
     }
 }

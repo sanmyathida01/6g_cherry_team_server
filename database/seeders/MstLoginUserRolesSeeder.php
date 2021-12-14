@@ -17,7 +17,7 @@ class MstLoginUserRolesSeeder extends Seeder
         DB::table('mst_login_user_roles')->insertOrIgnore([
             [
                 'login_user_roles_id' => 1,
-                'role_name' => "General User",
+                'role_name' => "一般ユーザー",
             ],
             [
                 'login_user_roles_id' => 2,

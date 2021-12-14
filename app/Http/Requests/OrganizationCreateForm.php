@@ -27,7 +27,6 @@ class OrganizationCreateForm extends FormRequest
     public function rules()
     {
         return [
-            'parent_organization_id' => ['required'],
             'organization_name' => ['required'],
         ];
     }
@@ -38,7 +37,6 @@ class OrganizationCreateForm extends FormRequest
     public function attributes()
     {
         return [
-            'parent_organization_id' => 'グループ名',
             'organization_name' => 'チーム名',
         ];
     }

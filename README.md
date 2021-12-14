@@ -1,4 +1,4 @@
-# pjbase-server
+# 6g-cherry-team-server
 
 ## Project Setup
 
@@ -8,15 +8,7 @@
     $ docker-compose up -d
     ```
 
-## Database
-
-1.  access database
-
-    ```
-    localhost:8888
-    ```
-
-<!-- 1.  create `.env` file
+2.  create `.env` file
 
     ```
     $ cp .env.example .env [ For mac OS]
@@ -24,10 +16,10 @@
     copy .env.example to .env [ For window OS]
     ```
 
-1.  install composer
+<!-- 3.  install composer
     ```
     $ docker-compose exec php-fpm composer install
-    ```
+    ``` -->
 
 ## Database
 
@@ -35,4 +27,16 @@
 
     ```
     $ docker-compose exec php-fpm php artisan migrate
-    ``` -->
+    ```
+
+2.  seeding database
+
+    ```
+    $ docker-compose exec php-fpm php artisan db:seed
+    ```
+
+3.  access database
+
+    ```
+    localhost:8888
+    ```

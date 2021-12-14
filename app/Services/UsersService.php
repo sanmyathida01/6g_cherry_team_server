@@ -2,24 +2,35 @@
 
 namespace App\Services;
 
+use App\Dao\MstLoginUserRolesDao;
 use App\Dao\TbLoginUsersDao;
 use App\Models\TbLoginUsers;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 class UsersService
 {
     private $tbLoginUsersDao;
+    private $mstLoginUserRoleDao;
 
     /**
      * Class Constructor
      *
      * @param TeamsDao $teamsDao
      */
-    public function __construct(TbLoginUsersDao $tbLoginUsersDao)
+    public function __construct(TbLoginUsersDao $tbLoginUsersDao, MstLoginUserRolesDao $mstLoginUserRoleDao)
     {
         $this->tbLoginUsersDao = $tbLoginUsersDao;
+        $this->mstLoginUserRoleDao = $mstLoginUserRoleDao;
+    }
+
+    /**
+     * マスタユーザーロル一覧取得
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getUserRoles()
+    {
+        return $this->mstLoginUserRoleDao->getUserRoles();
     }
 
     /**
@@ -28,7 +39,7 @@ class UsersService
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create($request)
     {
         $tbLoginUsers = new TbLoginUsers();
         $tbLoginUsers->login_user_email    = $request->login_user_email;
@@ -55,13 +66,27 @@ class UsersService
     }
 
     /**
+     * ユーザ一覧
+     *
+     * @param  App\Http\Requests\UserCreateForm  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function list($request)
+    {
+        $tbLoginUsers = new TbLoginUsers();
+        $tbLoginUsers->limit = config('constant.LIMIT');
+        $tbLoginUsers->page = $request->page;
+        return $this->tbLoginUsersDao->list($tbLoginUsers);
+    }
+
+    /**
      * ユーザー編集
      *
      * @param  \Illuminate\Http\Request  $request
      * @param int $id login_users_id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($request, $id)
     {
         $tbLoginUsers = new TbLoginUsers();
         $tbLoginUsers->login_users_id      = $id;

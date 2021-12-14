@@ -26,7 +26,7 @@ class OrganizationsService
      * @param  Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create($request)
     {
         $tbOrganizations = new TbOrganizations();
         $tbOrganizations->organization_id = $request->parent_organization_id;
@@ -44,7 +44,7 @@ class OrganizationsService
     public function list(Request $request)
     {
         $tbOrganizations = new TbOrganizations();
-        $tbOrganizations->limit = $request->limit;
+        $tbOrganizations->limit = config('constant.LIMIT');
         $tbOrganizations->page = $request->page;
         return $this->tbOrganizationsDao->list($tbOrganizations);
     }
@@ -56,7 +56,7 @@ class OrganizationsService
      * @param int $id organization_id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($request, $id)
     {
         $tbOrganizations = new TbOrganizations();
         $tbOrganizations->id = $id;
@@ -75,5 +75,25 @@ class OrganizationsService
     public function delete($id)
     {
         return $this->tbOrganizationsDao->delete($id);
+    }
+
+    /**
+     * グループ一覧
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function groupList()
+    {
+        return $this->tbOrganizationsDao->groupList();
+    }
+
+    /**
+     * チーム一覧
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function teamList()
+    {
+        return $this->tbOrganizationsDao->teamList();
     }
 }

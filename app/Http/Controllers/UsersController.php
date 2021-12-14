@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserCreateForm;
 use App\Http\Requests\UserUpdateForm;
 use App\Services\UsersService;
+use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
@@ -21,6 +22,16 @@ class UsersController extends Controller
     }
 
     /**
+     * マスタユーザーロル一覧取得
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getUserRoles()
+    {
+        return $this->usersService->getUserRoles();
+    }
+
+    /**
      * ユーザ登録
      *
      * @param  App\Http\Requests\UserCreateForm  $request
@@ -29,6 +40,17 @@ class UsersController extends Controller
     public function create(UserCreateForm $request)
     {
         return $this->usersService->create($request);
+    }
+
+    /**
+     * ユーザ一覧
+     *
+     * @param  Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function list(Request $request)
+    {
+        return $this->usersService->list($request);
     }
 
     /**

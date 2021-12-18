@@ -41,7 +41,7 @@ class TeamsService
     public function list($request)
     {
         $tbPosts = new TbPosts();
-        $tbPosts->limit = $request->limit;
+        $tbPosts->limit = config('constant.LIMIT');
         $tbPosts->page = $request->page;
         return $this->tbPostsDao->list($tbPosts);
     }

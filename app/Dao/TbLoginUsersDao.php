@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use App\Exceptions\CustomException;
 
 class TbLoginUsersDao
 {
@@ -106,5 +107,68 @@ class TbLoginUsersDao
             Log::error($ex);
         }
         return ($data) ? true : false;
+    }
+
+    /**
+     * ログイン
+     *
+     * @param App\Models\TbLoginUsers $tbLoginUsers
+     * @return $dataList $result
+     */
+    public function login(TbLoginUsers $tbLoginUsers)
+    {
+        DB::beginTransaction();
+
+        try {
+            //メールでユーザー情報検索
+            $data = TbLoginUsers::find($tbLoginUsers->login_user_email);
+            //ログインユーザー情報（レスポンス用の配列）
+            $loginUserInfo = [];
+            //DB整合性チェック用コンスタント
+            $result;
+            if ($data) {
+                //DB整合性チェック（パスワードとメールの確認）
+                $result = checkPassword($data->password, $tbLoginUsers->password);
+                //passwordがあっている場合、ログインユーザー情報を返す
+                if ($result) {
+                    $loginUserInfo = $data->select([
+                        'tb_login_users.login_users_id',
+                        'tb_login_users.login_users_role_id'
+                    ]);
+                    session()->put("simple_auth", true);
+			        return redirect("/posts");
+                }else{
+                    //ログイン失敗
+                    return redirect("/login")->withErrors([
+                        "login" => "ユーザーIDまたはパスワードが違います"
+                    ]);
+                }
+                return $loginUserInfo;
+            }
+            return $loginUserInfo;
+            DB::commit();
+        } catch (Exception $ex) {
+            DB::rollback();
+            Log::error($ex);
+        }
+        return ($data) ? true : false;
+    }
+
+    /**
+     *　パスワードのチェック
+     *
+     */
+    private function checkPassword($dbPassword, $requestPassword)
+    {
+        return ($dbPassword === $requestPassword) ? true: false;
+    }
+
+    /**
+     * ログアウト
+     * @param App\Models\TbLoginUsers $tbLoginUsers
+     */
+    public function logout(){
+        session()->forget("simple_auth");
+		return redirect("/login");
     }
 }

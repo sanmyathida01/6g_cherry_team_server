@@ -1,0 +1,8 @@
+### login
+POST http://localhost:8000/api/login
+content-type: application/json
+
+{
+  "login_user_email": "seattleuser@example.com",
+  "password": "TED3o19r"
+}

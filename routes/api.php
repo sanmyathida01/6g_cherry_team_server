@@ -3,6 +3,7 @@
 use App\Http\Controllers\OrganizationsController;
 use App\Http\Controllers\TeamsController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+/**
+ * ログイン
+ */
+Route::post('/login',[AuthController::class, 'login'])->name('login');
+/**
+ * ログアウト
+ */
+Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 /**
  * ユーザ
  */

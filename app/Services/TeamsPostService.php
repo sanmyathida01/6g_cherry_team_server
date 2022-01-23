@@ -1,13 +1,10 @@
 <?php
-
-namespace App\Services;　//お約束
-use App\Dao\TeamsPostDao;　//宣言
-
-
+namespace App\Services;//お約束
+use App\Dao\TeamsPostDao;  //宣言
+use App\Models\TbPosts;
 class TeamsPostService
  {
     private $teamsPostDao;
-
     /**
      * Class Constructor
      *
@@ -18,20 +15,28 @@ class TeamsPostService
     {
         $this->teamsPostDao = $teamsPostDao;
     }
-
-    public function create(Request $request)　//request:フロントから情報を取得するためのもの
+    public function create($request)
     {
-      return $this->teamsPostDao->create($request);
+        $tbpost = new TbPosts();
+        $tbpost->from_user_id = $request->from_user_id;
+        $tbpost->to_user_id = $request->to_user_id;
+        $tbpost->created_user_id = $request->from_user_id;
+        $tbpost->content = $request->content;
+        $tbpost->teams_categories_id = $request->teams_categories_id;
+        return $this->teamsPostDao->create($tbpost);
     }
-
-    public function update(Request $request)　//request:フロントから情報を取得するためのもの
+    public function update($request)//request:フロントから情報を取得するためのもの
     {
+      $tbpost = new TbPosts();
+        $tbpost->from_user_id = $request->from_user_id;
+        $tbpost->to_user_id = $request->to_user_id;
+        $tbpost->created_user_id = $request->from_user_id;
+        $tbpost->content = $request->content;
+        $tbpost->teams_categories_id = $request->teams_categories_id;
       return $this->teamsPostDao->update($request);
     }
-
-    public function delete(Request $request)　//request:フロントから情報を取得するためのもの
+    public function delete($request)//request:フロントから情報を取得するためのもの
     {
       return $this->teamsPostDao->delete($request);
     }
-      
-}   
+  }

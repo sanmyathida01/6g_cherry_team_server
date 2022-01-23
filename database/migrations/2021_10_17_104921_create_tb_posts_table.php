@@ -15,7 +15,7 @@ class CreateTbPostsTable extends Migration
     {
         Schema::create('tb_posts', function (Blueprint $table) {
             $table->id('posts_id')->comment('ID');
-            $table->integer('team_categories_id')->comment('チームのカテゴリID');
+            $table->integer('teams_categories_id')->comment('チームのカテゴリID');
             $table->unsignedInteger('from_user_id')->comment('誰から');
             $table->unsignedInteger('to_user_id')->comment('誰かに');
             $table->string('content')->comment('ポスト内容');

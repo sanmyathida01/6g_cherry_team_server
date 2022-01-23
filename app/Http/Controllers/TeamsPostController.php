@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;　//ここまではお約束で書くもの
+namespace App\Http\Controllers;//ここまではお約束で書くもの
 
 
 //ここら辺で使うものの宣言してる
-use Illuminate\Http\Request;
 use App\Services\TeamsPostService;
 use Illuminate\Http\Request;
+
+use App\Http\Requests\TeamsPostForm;
 
 class TeamsPostController extends Controller
 {
@@ -23,19 +24,19 @@ class TeamsPostController extends Controller
         $this->teamsPostService = $teamsPostService;
     }
     //createの機能
-    public function create(Request $request)　//request:フロントから情報を取得するためのもの
+    public function create(TeamsPostForm $request)//request:フロントから情報を取得するためのもの
     {
       return $this->teamsPostService->create($request); //コントローラーからサービスに情報を渡すためのもの
   
     }
     //updateの機能
-    public function update(Request $request)　//request:フロントから情報を取得するためのもの
+    public function update(TeamsPostForm $request)//request:フロントから情報を取得するためのもの
     {
       return $this->teamsPostService->update($request); //コントローラーからサービスに情報を渡すためのもの
   
     }
     //deleteの機能
-    public function delete(Request $request)　//request:フロントから情報を取得するためのもの
+    public function delete(Request $request)//request:フロントから情報を取得するためのもの
     {
       return $this->teamsPostService->delete($request); //コントローラーからサービスに情報を渡すためのもの
   
